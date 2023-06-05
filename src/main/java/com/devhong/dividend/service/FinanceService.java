@@ -5,6 +5,7 @@ import com.devhong.dividend.dto.Dividend;
 import com.devhong.dividend.dto.ScrapedResult;
 import com.devhong.dividend.entity.CompanyEntity;
 import com.devhong.dividend.entity.DividendEntity;
+import com.devhong.dividend.exception.impl.NoCompanyException;
 import com.devhong.dividend.repository.CompanyRepository;
 import com.devhong.dividend.repository.DividendRepository;
 import com.devhong.dividend.type.CacheKey;
@@ -30,7 +31,7 @@ public class FinanceService {
     public ScrapedResult getDividendByCompanyName(String companyName) {
         log.info("search company dividend at DB->" + companyName);
         CompanyEntity company = companyRepository.findByName(companyName)
-                .orElseThrow(()->new RuntimeException("존재하지 않는 회사명입니다"));
+                .orElseThrow(NoCompanyException::new);
 
         List<DividendEntity> dividendEntities = dividendRepository.findAllByCompanyId(company.getId());
 

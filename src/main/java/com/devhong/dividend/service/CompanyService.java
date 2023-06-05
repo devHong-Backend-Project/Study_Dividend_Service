@@ -4,6 +4,7 @@ import com.devhong.dividend.dto.Company;
 import com.devhong.dividend.dto.ScrapedResult;
 import com.devhong.dividend.entity.CompanyEntity;
 import com.devhong.dividend.entity.DividendEntity;
+import com.devhong.dividend.exception.impl.NoCompanyException;
 import com.devhong.dividend.repository.CompanyRepository;
 import com.devhong.dividend.repository.DividendRepository;
 import com.devhong.dividend.scraper.Scraper;
@@ -85,7 +86,7 @@ public class CompanyService {
     @CacheEvict(value = CacheKey.KEY_FINANCE, key = "#result.name")
     public Company deleteCompany(String ticker) {
         CompanyEntity company = companyRepository.findByTicker(ticker)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 회사입니다."));
+                .orElseThrow(NoCompanyException::new);
 
         dividendRepository.deleteAllByCompanyId(company.getId());
         companyRepository.delete(company);

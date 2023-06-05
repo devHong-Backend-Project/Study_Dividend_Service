@@ -2,6 +2,7 @@ package com.devhong.dividend.service;
 
 import com.devhong.dividend.dto.Auth;
 import com.devhong.dividend.entity.MemberEntity;
+import com.devhong.dividend.exception.impl.AlreadyExistUserException;
 import com.devhong.dividend.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class MemberService implements UserDetailsService {
 
     public MemberEntity register(Auth.SignUp member){
         if (memberRepository.existsByUsername(member.getUsername())) {
-            throw new RuntimeException("이미 사용중인 아이디 입니다.");
+            throw new AlreadyExistUserException();
         }
 
         member.setPassword(passwordEncoder.encode(member.getPassword()));

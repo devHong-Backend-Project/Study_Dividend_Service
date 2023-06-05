@@ -47,6 +47,7 @@ public class ScraperScheduler {
                         boolean exists = dividendRepository.existsByCompanyIdAndDate(e.getCompanyId(), e.getDate());
                         if (!exists) {
                             dividendRepository.save(e);
+                            log.info("insert new dividend -> " + e.toString());
                         }
                     });
             // 스크래핑 요청에 대한 rate limit 고려
