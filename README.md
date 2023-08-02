@@ -17,7 +17,7 @@
 
 <br>
 
-## *Service Flow*
+## *Service Flow*
 ***
 ![dividen-flow](https://github.com/devHong-Backend-Project/Study_Dividend_Service/assets/100022877/9f533941-e364-4a87-914a-dbbd9b6327a6)
 
